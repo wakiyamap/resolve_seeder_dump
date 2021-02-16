@@ -1,0 +1,4 @@
+curl -s https://seeds.tamami-foundation.org/seeds.txt | grep "    1 "
+
+export MAXMIND_LICENSE_KEY="your license key"
+./update.sh
