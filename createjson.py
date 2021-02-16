@@ -74,7 +74,7 @@ def raw_geoip(address):
 
     return (city, country, lat, lng, timezone, asn, org)
 
-
+seeds_list = []
 with open('seeds.txt', mode='rt', encoding='utf-8') as f:
 	for line in f:
 		l = line.split()
@@ -84,5 +84,8 @@ with open('seeds.txt', mode='rt', encoding='utf-8') as f:
 		hn = raw_hostname(l2[0])
 		info = raw_geoip(l2[0])
 
-		l3 = [l2[0],l2[1],l[4],l[5],l[1],int("0x"+ l[3], 0),l[2],hn,info[0],info[1],info[2],info[3],info[4],info[5],info[6]]
-		print(json.dumps(l3))
+		l3 = [l2[0],l2[1],int(l[4]),l[5].strip('"'),int(l[1]),int("0x"+ l[3], 0),int(l[2]),hn,info[0],info[1],info[2],info[3],info[4],info[5],info[6]]
+		seeds_list.append(l3)
+
+with open('map_plot.json', 'w') as f:
+	f.write(json.dumps(seeds_list))

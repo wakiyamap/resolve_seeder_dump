@@ -1,0 +1,4 @@
+geoip/*.mmdb
+geoip/*.txt
+seeds.txt
+map_plot.json
