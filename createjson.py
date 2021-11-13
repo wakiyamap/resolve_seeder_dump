@@ -2,6 +2,8 @@ import urllib.parse
 import geoip2.database
 import socket
 import json
+import subprocess
+from subprocess import PIPE
 from decimal import Decimal
 from geoip2.errors import AddressNotFoundError
 
@@ -74,6 +76,9 @@ def raw_geoip(address):
 
     return (city, country, lat, lng, timezone, asn, org)
 
+
+proc = subprocess.run("cat ../dnsseeddata/seeds.txt | grep '    1 ' > seeds.txt", shell=True, text=True)
+
 seeds_list = []
 with open('seeds.txt', mode='rt', encoding='utf-8') as f:
 	for line in f:
@@ -87,5 +92,5 @@ with open('seeds.txt', mode='rt', encoding='utf-8') as f:
 		l3 = [l2[0],l2[1],int(l[4]),l[5].strip('"'),int(l[1]),int("0x"+ l[3], 0),int(l[2]),hn,info[0],info[1],info[2],info[3],info[4],info[5],info[6]]
 		seeds_list.append(l3)
 
-with open('map_plot.json', 'w') as f:
+with open('../dnsseeddata/map_plot.json', 'w') as f:
 	f.write(json.dumps(seeds_list))
