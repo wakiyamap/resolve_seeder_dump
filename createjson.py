@@ -77,7 +77,7 @@ def raw_geoip(address):
     return (city, country, lat, lng, timezone, asn, org)
 
 
-proc = subprocess.run("cat ../dnsseeddata/seeds.txt | grep '    1 ' > seeds.txt", shell=True, text=True)
+proc = subprocess.run("curl -s https://seeds.tamami-foundation.org/seeds.txt | grep '    1 '", shell=True, text=True)
 
 seeds_list = []
 with open('seeds.txt', mode='rt', encoding='utf-8') as f:
